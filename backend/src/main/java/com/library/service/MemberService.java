@@ -2,7 +2,6 @@ package com.library.service;
 
 import com.library.dto.MemberRequest;
 import com.library.dto.MemberResponse;
-import com.library.entity.BorrowStatus;
 import com.library.entity.Member;
 import com.library.exception.BusinessException;
 import com.library.exception.DuplicateResourceException;
@@ -98,9 +97,9 @@ public class MemberService {
     public void deleteMember(Long id) {
         Member member = findMemberOrThrow(id);
 
-        // Check for active borrowings
-        if (!borrowTransactionRepository.findByMemberIdAndStatus(id, BorrowStatus.ISSUED).isEmpty()) {
-            throw new BusinessException("Cannot delete member. They have active borrowing transactions.");
+        // Check for any borrowings (ISSUED or RETURNED) — cannot delete if records exist
+        if (!borrowTransactionRepository.findByMemberId(id).isEmpty()) {
+            throw new BusinessException("Cannot delete member. Borrowing records are associated with this member.");
         }
 
         memberRepository.delete(member);

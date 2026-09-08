@@ -84,12 +84,15 @@ function Members() {
 
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this member?')) return;
+    setError('');
+    setSuccess('');
     try {
       await memberService.deleteMember(id);
       setSuccess('Member deleted successfully!');
       fetchMembers();
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to delete member.');
+      const data = err.response?.data;
+      setError(data?.message || 'Failed to delete member.');
     }
   };
 

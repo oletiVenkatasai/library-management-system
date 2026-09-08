@@ -4,7 +4,6 @@ import com.library.dto.BookRequest;
 import com.library.dto.BookResponse;
 import com.library.entity.Author;
 import com.library.entity.Book;
-import com.library.entity.BorrowStatus;
 import com.library.exception.BusinessException;
 import com.library.exception.DuplicateResourceException;
 import com.library.exception.ResourceNotFoundException;
@@ -131,9 +130,9 @@ public class BookService {
     public void deleteBook(Long id) {
         Book book = findBookOrThrow(id);
 
-        // Check for active borrowings
-        if (!borrowTransactionRepository.findByBookIdAndStatus(id, BorrowStatus.ISSUED).isEmpty()) {
-            throw new BusinessException("Cannot delete book. It has active borrowing transactions.");
+        // Check for any borrowings (ISSUED or RETURNED) — cannot delete if records exist
+        if (!borrowTransactionRepository.findByBookId(id).isEmpty()) {
+            throw new BusinessException("Cannot delete book. Borrowing records are associated with this book.");
         }
 
         bookRepository.delete(book);

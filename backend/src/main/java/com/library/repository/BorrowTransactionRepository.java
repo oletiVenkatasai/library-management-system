@@ -25,8 +25,13 @@ public interface BorrowTransactionRepository extends JpaRepository<BorrowTransac
     List<BorrowTransaction> findByMemberId(Long memberId);
 
     /**
-     * Find active borrowings for a specific book.
+     * Find ALL borrowings for a specific book (any status).
      * Used to check if a book can be deleted.
+     */
+    List<BorrowTransaction> findByBookId(Long bookId);
+
+    /**
+     * Find active borrowings for a specific book.
      */
     List<BorrowTransaction> findByBookIdAndStatus(Long bookId, BorrowStatus status);
 

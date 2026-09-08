@@ -89,9 +89,8 @@ function Books() {
       resetForm();
       fetchBooks();
     } catch (err) {
-      const message = err.response?.data?.message || err.response?.data?.errors
-        ? Object.values(err.response.data.errors).join(', ')
-        : 'Operation failed.';
+      const data = err.response?.data;
+      const message = data?.message || (data?.errors ? Object.values(data.errors).join(', ') : 'Operation failed.');
       setError(message);
     }
   };
@@ -114,12 +113,15 @@ function Books() {
 
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this book?')) return;
+    setError('');
+    setSuccess('');
     try {
       await bookService.deleteBook(id);
       setSuccess('Book deleted successfully!');
       fetchBooks();
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to delete book.');
+      const data = err.response?.data;
+      setError(data?.message || 'Failed to delete book.');
     }
   };
 
