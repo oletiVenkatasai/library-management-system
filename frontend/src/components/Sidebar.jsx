@@ -12,6 +12,8 @@ function Sidebar() {
     { to: '/members', label: 'Members', icon: 'bi-people-fill' },
     { to: '/borrow/issue', label: 'Issue Book', icon: 'bi-box-arrow-right' },
     { to: '/borrowings', label: 'Borrowings', icon: 'bi-clock-history' },
+    { to: '/overdue', label: 'Overdue Books', icon: 'bi-exclamation-triangle-fill' },
+
   ];
 
   return (

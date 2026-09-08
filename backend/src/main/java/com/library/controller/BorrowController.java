@@ -41,6 +41,12 @@ public class BorrowController {
         return ResponseEntity.ok(borrowService.getActiveBorrowings());
     }
 
+    /** GET /api/borrowings/overdue - Get overdue borrowings (past due date) */
+    @GetMapping("/overdue")
+    public ResponseEntity<List<BorrowResponse>> getOverdueBorrowings() {
+        return ResponseEntity.ok(borrowService.getOverdueBorrowings());
+    }
+
     /** GET /api/borrowings/member/{memberId} - Get member's borrow history */
     @GetMapping("/member/{memberId}")
     public ResponseEntity<List<BorrowResponse>> getMemberBorrowingHistory(@PathVariable Long memberId) {

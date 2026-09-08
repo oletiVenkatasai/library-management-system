@@ -46,4 +46,12 @@ public interface BorrowTransactionRepository extends JpaRepository<BorrowTransac
      */
     @Query("SELECT bt FROM BorrowTransaction bt ORDER BY bt.issueDate DESC")
     List<BorrowTransaction> findRecentBorrowings();
+
+    /**
+     * Find overdue borrowings — ISSUED status where dueDate is before today.
+     */
+    @Query("SELECT bt FROM BorrowTransaction bt WHERE bt.status = :status AND bt.dueDate < :today ORDER BY bt.dueDate ASC")
+    List<BorrowTransaction> findOverdueBorrowings(
+            @org.springframework.data.repository.query.Param("status") BorrowStatus status,
+            @org.springframework.data.repository.query.Param("today") java.time.LocalDate today);
 }

@@ -7,6 +7,7 @@ import Authors from './pages/Authors';
 import Members from './pages/Members';
 import IssueBook from './pages/IssueBook';
 import Borrowings from './pages/Borrowings';
+import Overdue from './pages/Overdue';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -39,6 +40,7 @@ function App() {
               <Route path="/members" element={<Members />} />
               <Route path="/borrow/issue" element={<IssueBook />} />
               <Route path="/borrowings" element={<Borrowings />} />
+              <Route path="/overdue" element={<Overdue />} />
             </Routes>
           </main>
         </div>

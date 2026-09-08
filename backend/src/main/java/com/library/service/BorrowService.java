@@ -143,6 +143,16 @@ public class BorrowService {
     }
 
     /**
+     * Get overdue borrowings — issued books whose due date has passed.
+     */
+    public List<BorrowResponse> getOverdueBorrowings() {
+        return borrowTransactionRepository.findOverdueBorrowings(BorrowStatus.ISSUED, LocalDate.now())
+                .stream()
+                .map(this::mapToResponse)
+                .collect(Collectors.toList());
+    }
+
+    /**
      * Get borrowing history for a specific member.
      */
     public List<BorrowResponse> getMemberBorrowingHistory(Long memberId) {
