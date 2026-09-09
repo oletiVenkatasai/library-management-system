@@ -13,11 +13,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Dashboard Service - Aggregates statistics from all repositories.
- *
- * All numbers come from the REAL database. No fake/hardcoded data.
- */
 @Service
 public class DashboardService {
 
@@ -36,9 +31,6 @@ public class DashboardService {
         this.borrowTransactionRepository = borrowTransactionRepository;
     }
 
-    /**
-     * Get all dashboard statistics.
-     */
     public DashboardResponse getDashboardStats() {
         DashboardResponse response = new DashboardResponse();
 
@@ -48,7 +40,6 @@ public class DashboardService {
         response.setAvailableBooks(bookRepository.countAvailableBooks());
         response.setIssuedBooks(borrowTransactionRepository.countByStatus(BorrowStatus.ISSUED));
 
-        // Get recent borrowings (last 5)
         List<BorrowTransaction> recentTransactions = borrowTransactionRepository.findRecentBorrowings();
         List<BorrowResponse> recentBorrowings = recentTransactions.stream()
                 .limit(5)

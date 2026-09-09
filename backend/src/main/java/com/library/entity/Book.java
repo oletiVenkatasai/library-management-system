@@ -11,19 +11,6 @@ import jakarta.persistence.Table;
 
 import java.time.LocalDate;
 
-/**
- * Book Entity - Maps to the 'books' table in MySQL.
- *
- * KEY RELATIONSHIP:
- * @ManyToOne with Author → Many books can belong to one author.
- * @JoinColumn(name = "author_id") → The 'author_id' column in the books table
- * is the foreign key pointing to the authors table.
- *
- * Interview Question: "What is @ManyToOne in JPA?"
- * Answer: "It defines a many-to-one relationship. In my project, many books
- * can belong to one author. The @JoinColumn specifies which column in the
- * books table holds the foreign key."
- */
 @Entity
 @Table(name = "books")
 public class Book {
@@ -54,11 +41,9 @@ public class Book {
     @JoinColumn(name = "author_id", nullable = false)
     private Author author;
 
-    // Default constructor
     public Book() {
     }
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }

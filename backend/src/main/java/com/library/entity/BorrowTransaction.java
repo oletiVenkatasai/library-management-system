@@ -13,15 +13,6 @@ import jakarta.persistence.Table;
 
 import java.time.LocalDate;
 
-/**
- * BorrowTransaction Entity - Maps to the 'borrow_transactions' table.
- *
- * This tracks every time a book is issued to a member and when it's returned.
- *
- * Relationships:
- * - @ManyToOne Book: One book can have many borrow transactions
- * - @ManyToOne Member: One member can have many borrow transactions
- */
 @Entity
 @Table(name = "borrow_transactions")
 public class BorrowTransaction {
@@ -51,11 +42,9 @@ public class BorrowTransaction {
     @Column(nullable = false, length = 20)
     private BorrowStatus status;
 
-    // Default constructor
     public BorrowTransaction() {
     }
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }

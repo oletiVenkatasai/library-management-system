@@ -18,9 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-/**
- * Member Controller - Handles HTTP requests for member operations.
- */
 @RestController
 @RequestMapping("/api/members")
 public class MemberController {
@@ -31,26 +28,22 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    /** GET /api/members - Get all members */
     @GetMapping
     public ResponseEntity<List<MemberResponse>> getAllMembers() {
         return ResponseEntity.ok(memberService.getAllMembers());
     }
 
-    /** GET /api/members/{id} - Get member by ID */
     @GetMapping("/{id}")
     public ResponseEntity<MemberResponse> getMemberById(@PathVariable Long id) {
         return ResponseEntity.ok(memberService.getMemberById(id));
     }
 
-    /** POST /api/members - Add a new member */
     @PostMapping
     public ResponseEntity<MemberResponse> addMember(@Valid @RequestBody MemberRequest request) {
         MemberResponse created = memberService.addMember(request);
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
-    /** PUT /api/members/{id} - Update a member */
     @PutMapping("/{id}")
     public ResponseEntity<MemberResponse> updateMember(
             @PathVariable Long id,
@@ -58,14 +51,12 @@ public class MemberController {
         return ResponseEntity.ok(memberService.updateMember(id, request));
     }
 
-    /** DELETE /api/members/{id} - Delete a member */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMember(@PathVariable Long id) {
         memberService.deleteMember(id);
         return ResponseEntity.noContent().build();
     }
 
-    /** GET /api/members/search?keyword=value - Search members */
     @GetMapping("/search")
     public ResponseEntity<List<MemberResponse>> searchMembers(@RequestParam String keyword) {
         return ResponseEntity.ok(memberService.searchMembers(keyword));

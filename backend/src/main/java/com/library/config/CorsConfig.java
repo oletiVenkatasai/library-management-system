@@ -9,14 +9,6 @@ import org.springframework.web.filter.CorsFilter;
 
 import java.util.List;
 
-/**
- * CORS Configuration.
- *
- * WHY do we need this?
- * React runs on localhost:5173 and Spring Boot on localhost:8080.
- * Browsers block requests between different origins (ports) by default.
- * This config tells Spring Boot: "Allow requests from the React frontend."
- */
 @Configuration
 public class CorsConfig {
 
@@ -26,22 +18,12 @@ public class CorsConfig {
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
-
-        // Allow the React frontend origin
         config.setAllowedOrigins(List.of(allowedOrigins.split(",")));
-
-        // Allow these HTTP methods
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-
-        // Allow all headers
         config.setAllowedHeaders(List.of("*"));
-
-        // Allow credentials (cookies, auth headers)
         config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-
-        // Apply CORS config to all API endpoints
         source.registerCorsConfiguration("/**", config);
 
         return new CorsFilter(source);

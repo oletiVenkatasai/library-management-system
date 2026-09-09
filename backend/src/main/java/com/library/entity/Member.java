@@ -9,9 +9,6 @@ import jakarta.persistence.Table;
 
 import java.time.LocalDate;
 
-/**
- * Member Entity - Maps to the 'members' table in MySQL.
- */
 @Entity
 @Table(name = "members")
 public class Member {
@@ -35,11 +32,9 @@ public class Member {
     @Column(name = "membership_date", nullable = false)
     private LocalDate membershipDate;
 
-    // Default constructor
     public Member() {
     }
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }

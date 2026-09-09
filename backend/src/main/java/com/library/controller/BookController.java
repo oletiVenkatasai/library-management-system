@@ -18,9 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-/**
- * Book Controller - Handles HTTP requests for book operations.
- */
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
@@ -31,26 +28,22 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    /** GET /api/books - Get all books */
     @GetMapping
     public ResponseEntity<List<BookResponse>> getAllBooks() {
         return ResponseEntity.ok(bookService.getAllBooks());
     }
 
-    /** GET /api/books/{id} - Get book by ID */
     @GetMapping("/{id}")
     public ResponseEntity<BookResponse> getBookById(@PathVariable Long id) {
         return ResponseEntity.ok(bookService.getBookById(id));
     }
 
-    /** POST /api/books - Add a new book */
     @PostMapping
     public ResponseEntity<BookResponse> addBook(@Valid @RequestBody BookRequest request) {
         BookResponse created = bookService.addBook(request);
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
-    /** PUT /api/books/{id} - Update a book */
     @PutMapping("/{id}")
     public ResponseEntity<BookResponse> updateBook(
             @PathVariable Long id,
@@ -58,14 +51,12 @@ public class BookController {
         return ResponseEntity.ok(bookService.updateBook(id, request));
     }
 
-    /** DELETE /api/books/{id} - Delete a book */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
         bookService.deleteBook(id);
         return ResponseEntity.noContent().build();
     }
 
-    /** GET /api/books/search?keyword=value - Search books */
     @GetMapping("/search")
     public ResponseEntity<List<BookResponse>> searchBooks(@RequestParam String keyword) {
         return ResponseEntity.ok(bookService.searchBooks(keyword));

@@ -16,15 +16,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-/**
- * Book Service - Business logic for book operations.
- *
- * Key business rules:
- * 1. ISBN must be unique
- * 2. availableQuantity cannot be greater than quantity
- * 3. Cannot delete a book with active borrowings
- * 4. Author must exist when adding/updating a book
- */
 @Service
 public class BookService {
 
@@ -40,9 +31,6 @@ public class BookService {
         this.borrowTransactionRepository = borrowTransactionRepository;
     }
 
-    /**
-     * Get all books.
-     */
     public List<BookResponse> getAllBooks() {
         return bookRepository.findAll()
                 .stream()
@@ -50,30 +38,21 @@ public class BookService {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Get book by ID.
-     */
     public BookResponse getBookById(Long id) {
         Book book = findBookOrThrow(id);
         return mapToResponse(book);
     }
 
-    /**
-     * Add a new book.
-     */
     public BookResponse addBook(BookRequest request) {
-        // Check for duplicate ISBN
         Optional<Book> existingBook = bookRepository.findByIsbn(request.getIsbn());
         if (existingBook.isPresent()) {
             throw new DuplicateResourceException("A book with ISBN '" + request.getIsbn() + "' already exists");
         }
 
-        // Validate availableQuantity <= quantity
         if (request.getAvailableQuantity() > request.getQuantity()) {
             throw new BusinessException("Available quantity cannot be greater than total quantity");
         }
 
-        // Find the author
         Author author = authorRepository.findById(request.getAuthorId())
                 .orElseThrow(() -> new ResourceNotFoundException("Author not found with id: " + request.getAuthorId()));
 
@@ -90,24 +69,18 @@ public class BookService {
         return mapToResponse(saved);
     }
 
-    /**
-     * Update an existing book.
-     */
     public BookResponse updateBook(Long id, BookRequest request) {
         Book book = findBookOrThrow(id);
 
-        // Check for duplicate ISBN (but allow the same book to keep its ISBN)
         Optional<Book> existingBook = bookRepository.findByIsbn(request.getIsbn());
         if (existingBook.isPresent() && !existingBook.get().getId().equals(id)) {
             throw new DuplicateResourceException("A book with ISBN '" + request.getIsbn() + "' already exists");
         }
 
-        // Validate availableQuantity <= quantity
         if (request.getAvailableQuantity() > request.getQuantity()) {
             throw new BusinessException("Available quantity cannot be greater than total quantity");
         }
 
-        // Find the author
         Author author = authorRepository.findById(request.getAuthorId())
                 .orElseThrow(() -> new ResourceNotFoundException("Author not found with id: " + request.getAuthorId()));
 
@@ -123,14 +96,9 @@ public class BookService {
         return mapToResponse(updated);
     }
 
-    /**
-     * Delete a book.
-     * Cannot delete if the book has active (ISSUED) borrowings.
-     */
     public void deleteBook(Long id) {
         Book book = findBookOrThrow(id);
 
-        // Check for any borrowings (ISSUED or RETURNED) — cannot delete if records exist
         if (!borrowTransactionRepository.findByBookId(id).isEmpty()) {
             throw new BusinessException("Cannot delete book. Borrowing records are associated with this book.");
         }
@@ -138,19 +106,12 @@ public class BookService {
         bookRepository.delete(book);
     }
 
-    /**
-     * Search books by title, ISBN, or category.
-     */
     public List<BookResponse> searchBooks(String keyword) {
         return bookRepository.searchBooks(keyword)
                 .stream()
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
     }
-
-    // ============================================================
-    // Helper Methods
-    // ============================================================
 
     private Book findBookOrThrow(Long id) {
         return bookRepository.findById(id)
