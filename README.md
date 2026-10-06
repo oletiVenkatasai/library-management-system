@@ -2,6 +2,8 @@
 
 A beginner-friendly Java Full Stack portfolio project built with **Spring Boot 3**, **React**, **Spring Data JPA**, **Hibernate**, and **MySQL**.
 
+### 🌟 [Live Demo](https://library-management-system-x6m2-iota.vercel.app/)
+
 ---
 
 ## 📌 Project Overview
