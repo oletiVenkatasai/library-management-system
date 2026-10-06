@@ -2,9 +2,6 @@ import { useState, useEffect } from 'react';
 import bookService from '../services/bookService';
 import authorService from '../services/authorService';
 
-/**
- * Books Page - Full CRUD for books with search functionality.
- */
 function Books() {
   const [books, setBooks] = useState([]);
   const [authors, setAuthors] = useState([]);
@@ -64,7 +61,6 @@ function Books() {
     setError('');
     setSuccess('');
 
-    // Basic frontend validation
     if (parseInt(form.availableQuantity) > parseInt(form.quantity)) {
       setError('Available quantity cannot be greater than total quantity.');
       return;
@@ -143,7 +139,6 @@ function Books() {
       {error && <div className="alert alert-danger alert-dismissible">{error}<button type="button" className="btn-close" onClick={() => setError('')}></button></div>}
       {success && <div className="alert alert-success alert-dismissible">{success}<button type="button" className="btn-close" onClick={() => setSuccess('')}></button></div>}
 
-      {/* Add/Edit Form */}
       {showForm && (
         <div className="card mb-3">
           <div className="card-header">{editingBook ? 'Edit Book' : 'Add New Book'}</div>
@@ -202,7 +197,6 @@ function Books() {
         </div>
       )}
 
-      {/* Search */}
       <div className="input-group mb-3" style={{ maxWidth: '400px' }}>
         <input type="text" className="form-control" placeholder="Search by title, ISBN, or category..."
           value={searchKeyword} onChange={(e) => setSearchKeyword(e.target.value)}
@@ -213,7 +207,6 @@ function Books() {
         )}
       </div>
 
-      {/* Table */}
       {loading ? (
         <div className="text-center"><div className="spinner-border" role="status"></div></div>
       ) : (

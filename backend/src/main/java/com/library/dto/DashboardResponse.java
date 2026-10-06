@@ -2,9 +2,6 @@ package com.library.dto;
 
 import java.util.List;
 
-/**
- * Dashboard Response DTO - Contains all statistics for the dashboard page.
- */
 public class DashboardResponse {
 
     private long totalBooks;
@@ -14,11 +11,9 @@ public class DashboardResponse {
     private long issuedBooks;
     private List<BorrowResponse> recentBorrowings;
 
-    // Default constructor
     public DashboardResponse() {
     }
 
-    // Getters and Setters
     public long getTotalBooks() {
         return totalBooks;
     }

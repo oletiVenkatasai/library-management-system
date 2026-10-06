@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
 import authorService from '../services/authorService';
 
-/**
- * Authors Page - Full CRUD for authors with search.
- */
 function Authors() {
   const [authors, setAuthors] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -102,7 +99,6 @@ function Authors() {
       {error && <div className="alert alert-danger alert-dismissible">{error}<button type="button" className="btn-close" onClick={() => setError('')}></button></div>}
       {success && <div className="alert alert-success alert-dismissible">{success}<button type="button" className="btn-close" onClick={() => setSuccess('')}></button></div>}
 
-      {/* Form */}
       {showForm && (
         <div className="card mb-3">
           <div className="card-header">{editingAuthor ? 'Edit Author' : 'Add New Author'}</div>
@@ -127,7 +123,6 @@ function Authors() {
         </div>
       )}
 
-      {/* Search */}
       <div className="input-group mb-3" style={{ maxWidth: '400px' }}>
         <input type="text" className="form-control" placeholder="Search by name..."
           value={searchKeyword} onChange={(e) => setSearchKeyword(e.target.value)}
@@ -138,7 +133,6 @@ function Authors() {
         )}
       </div>
 
-      {/* Table */}
       {loading ? (
         <div className="text-center"><div className="spinner-border" role="status"></div></div>
       ) : (

@@ -6,9 +6,6 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
-/**
- * Book Request DTO - What the client sends when creating/updating a book.
- */
 public class BookRequest {
 
     @NotBlank(message = "Title is required")
@@ -33,11 +30,9 @@ public class BookRequest {
     @NotNull(message = "Author ID is required")
     private Long authorId;
 
-    // Default constructor
     public BookRequest() {
     }
 
-    // Getters and Setters
     public String getTitle() {
         return title;
     }

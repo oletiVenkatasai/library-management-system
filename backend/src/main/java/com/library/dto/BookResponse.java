@@ -2,10 +2,6 @@ package com.library.dto;
 
 import java.time.LocalDate;
 
-/**
- * Book Response DTO - What the API sends back to the client.
- * Includes author name instead of the full Author object.
- */
 public class BookResponse {
 
     private Long id;
@@ -18,11 +14,9 @@ public class BookResponse {
     private Long authorId;
     private String authorName;
 
-    // Default constructor
     public BookResponse() {
     }
 
-    // Constructor with all fields
     public BookResponse(Long id, String title, String isbn, String category,
                         int quantity, int availableQuantity, LocalDate publishedDate,
                         Long authorId, String authorName) {
@@ -37,7 +31,6 @@ public class BookResponse {
         this.authorName = authorName;
     }
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }

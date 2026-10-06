@@ -4,9 +4,6 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
-/**
- * Borrow Request DTO - Used when issuing a book.
- */
 public class BorrowRequest {
 
     @NotNull(message = "Member ID is required")
@@ -18,11 +15,9 @@ public class BorrowRequest {
     @NotNull(message = "Due date is required")
     private LocalDate dueDate;
 
-    // Default constructor
     public BorrowRequest() {
     }
 
-    // Getters and Setters
     public Long getMemberId() {
         return memberId;
     }

@@ -1,26 +1,12 @@
--- ============================================================
--- Library Management System - Database Schema
--- Database: library_db
--- ============================================================
-
--- Create database (if it doesn't already exist)
 CREATE DATABASE IF NOT EXISTS library_db;
 USE library_db;
 
--- ============================================================
--- Table: authors
--- Stores author information
--- ============================================================
 CREATE TABLE IF NOT EXISTS authors (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     biography TEXT
 );
 
--- ============================================================
--- Table: books
--- Stores book information with a foreign key to authors
--- ============================================================
 CREATE TABLE IF NOT EXISTS books (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(200) NOT NULL,
@@ -35,10 +21,6 @@ CREATE TABLE IF NOT EXISTS books (
         FOREIGN KEY (author_id) REFERENCES authors(id)
 );
 
--- ============================================================
--- Table: members
--- Stores library member information
--- ============================================================
 CREATE TABLE IF NOT EXISTS members (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -48,11 +30,6 @@ CREATE TABLE IF NOT EXISTS members (
     membership_date DATE NOT NULL
 );
 
--- ============================================================
--- Table: borrow_transactions
--- Tracks book borrowing and returning
--- Status: 'ISSUED' or 'RETURNED'
--- ============================================================
 CREATE TABLE IF NOT EXISTS borrow_transactions (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     book_id BIGINT NOT NULL,

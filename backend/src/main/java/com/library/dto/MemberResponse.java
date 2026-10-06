@@ -2,9 +2,6 @@ package com.library.dto;
 
 import java.time.LocalDate;
 
-/**
- * Member Response DTO.
- */
 public class MemberResponse {
 
     private Long id;
@@ -14,7 +11,6 @@ public class MemberResponse {
     private String address;
     private LocalDate membershipDate;
 
-    // Default constructor
     public MemberResponse() {
     }
 
@@ -28,7 +24,6 @@ public class MemberResponse {
         this.membershipDate = membershipDate;
     }
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }

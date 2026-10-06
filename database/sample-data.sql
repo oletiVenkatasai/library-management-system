@@ -1,13 +1,5 @@
--- ============================================================
--- Library Management System - Sample Data
--- Run this AFTER schema.sql
--- ============================================================
-
 USE library_db;
 
--- ============================================================
--- Authors (5 authors)
--- ============================================================
 INSERT INTO authors (name, biography) VALUES
 ('Robert C. Martin', 'Software engineer and author known for promoting clean code practices.'),
 ('Joshua Bloch', 'Former chief Java architect at Google, author of Effective Java.'),
@@ -15,9 +7,6 @@ INSERT INTO authors (name, biography) VALUES
 ('Martin Fowler', 'British software developer specializing in software design and refactoring.'),
 ('Herbert Schildt', 'Author of numerous programming books covering Java, C, and C++.');
 
--- ============================================================
--- Books (10 books)
--- ============================================================
 INSERT INTO books (title, isbn, category, quantity, available_quantity, published_date, author_id) VALUES
 ('Clean Code', '978-0132350884', 'Software Engineering', 5, 4, '2008-08-01', 1),
 ('The Clean Coder', '978-0137081073', 'Software Engineering', 3, 3, '2011-05-13', 1),
@@ -30,9 +19,6 @@ INSERT INTO books (title, isbn, category, quantity, available_quantity, publishe
 ('Java: A Beginner''s Guide', '978-1260463552', 'Java', 4, 4, '2022-01-14', 5),
 ('Clean Architecture', '978-0134494166', 'Architecture', 3, 2, '2017-09-10', 1);
 
--- ============================================================
--- Members (8 members)
--- ============================================================
 INSERT INTO members (name, email, phone, address, membership_date) VALUES
 ('Sai Kumar', 'sai.kumar@email.com', '9876543210', '12 MG Road, Bangalore', '2026-01-15'),
 ('Rahul Sharma', 'rahul.sharma@email.com', '9876543211', '45 Park Street, Mumbai', '2026-02-10'),
@@ -43,9 +29,6 @@ INSERT INTO members (name, email, phone, address, membership_date) VALUES
 ('Arjun Menon', 'arjun.menon@email.com', '9876543216', '34 Anna Nagar, Chennai', '2026-07-01'),
 ('Kavitha Iyer', 'kavitha.iyer@email.com', '9876543217', '67 Koregaon Park, Pune', '2026-07-25');
 
--- ============================================================
--- Borrow Transactions (5 transactions - mix of ISSUED and RETURNED)
--- ============================================================
 INSERT INTO borrow_transactions (book_id, member_id, issue_date, due_date, return_date, status) VALUES
 (1, 1, '2026-08-01', '2026-08-15', NULL, 'ISSUED'),
 (3, 2, '2026-07-28', '2026-08-11', '2026-08-10', 'RETURNED'),

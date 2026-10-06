@@ -1,10 +1,6 @@
 import { useState, useEffect } from 'react';
 import borrowService from '../services/borrowService';
 
-/**
- * Overdue Books Page — lists all active borrowings where the due date has passed.
- * Helps librarians quickly identify and follow up on late returns.
- */
 function Overdue() {
   const [overdue, setOverdue] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -39,9 +35,6 @@ function Overdue() {
     }
   };
 
-  /**
-   * Calculate how many days overdue a borrowing is.
-   */
   const daysOverdue = (dueDate) => {
     const due = new Date(dueDate);
     const today = new Date();

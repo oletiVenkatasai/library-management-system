@@ -3,9 +3,6 @@ import bookService from '../services/bookService';
 import memberService from '../services/memberService';
 import borrowService from '../services/borrowService';
 
-/**
- * Issue Book Page - Form to issue a book to a member.
- */
 function IssueBook() {
   const [members, setMembers] = useState([]);
   const [books, setBooks] = useState([]);
@@ -24,7 +21,6 @@ function IssueBook() {
         bookService.getAllBooks(),
       ]);
       setMembers(membersRes.data);
-      // Only show books that have available copies
       setBooks(booksRes.data.filter((b) => b.availableQuantity > 0));
     } catch (err) {
       setError('Failed to load data.');
@@ -45,7 +41,7 @@ function IssueBook() {
       await borrowService.issueBook(data);
       setSuccess('Book issued successfully!');
       setForm({ memberId: '', bookId: '', dueDate: '' });
-      fetchData(); // Refresh available books
+      fetchData();
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to issue book.');
     }

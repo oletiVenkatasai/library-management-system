@@ -1,15 +1,12 @@
 import { useState, useEffect } from 'react';
 import borrowService from '../services/borrowService';
 
-/**
- * Borrowings Page - View all borrowing transactions with Return action.
- */
 function Borrowings() {
   const [borrowings, setBorrowings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const [filter, setFilter] = useState('all'); // 'all', 'active', 'returned'
+  const [filter, setFilter] = useState('all');
 
   useEffect(() => {
     fetchBorrowings();
@@ -57,7 +54,6 @@ function Borrowings() {
       {error && <div className="alert alert-danger alert-dismissible">{error}<button type="button" className="btn-close" onClick={() => setError('')}></button></div>}
       {success && <div className="alert alert-success alert-dismissible">{success}<button type="button" className="btn-close" onClick={() => setSuccess('')}></button></div>}
 
-      {/* Filter Buttons */}
       <div className="btn-group mb-3">
         <button className={`btn ${filter === 'all' ? 'btn-primary' : 'btn-outline-primary'}`}
           onClick={() => setFilter('all')}>All</button>
@@ -67,7 +63,6 @@ function Borrowings() {
           onClick={() => setFilter('returned')}>Returned</button>
       </div>
 
-      {/* Table */}
       {loading ? (
         <div className="text-center"><div className="spinner-border" role="status"></div></div>
       ) : (

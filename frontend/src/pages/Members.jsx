@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
 import memberService from '../services/memberService';
 
-/**
- * Members Page - Full CRUD for members with search.
- */
 function Members() {
   const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -114,7 +111,6 @@ function Members() {
       {error && <div className="alert alert-danger alert-dismissible">{error}<button type="button" className="btn-close" onClick={() => setError('')}></button></div>}
       {success && <div className="alert alert-success alert-dismissible">{success}<button type="button" className="btn-close" onClick={() => setSuccess('')}></button></div>}
 
-      {/* Form */}
       {showForm && (
         <div className="card mb-3">
           <div className="card-header">{editingMember ? 'Edit Member' : 'Add New Member'}</div>
@@ -158,7 +154,6 @@ function Members() {
         </div>
       )}
 
-      {/* Search */}
       <div className="input-group mb-3" style={{ maxWidth: '400px' }}>
         <input type="text" className="form-control" placeholder="Search by name or email..."
           value={searchKeyword} onChange={(e) => setSearchKeyword(e.target.value)}
@@ -169,7 +164,6 @@ function Members() {
         )}
       </div>
 
-      {/* Table */}
       {loading ? (
         <div className="text-center"><div className="spinner-border" role="status"></div></div>
       ) : (

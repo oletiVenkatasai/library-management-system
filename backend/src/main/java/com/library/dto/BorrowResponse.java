@@ -2,10 +2,6 @@ package com.library.dto;
 
 import java.time.LocalDate;
 
-/**
- * Borrow Response DTO - What the API returns for borrowing transactions.
- * Contains book title, member name (not full objects) for easy display.
- */
 public class BorrowResponse {
 
     private Long id;
@@ -18,7 +14,6 @@ public class BorrowResponse {
     private LocalDate returnDate;
     private String status;
 
-    // Default constructor
     public BorrowResponse() {
     }
 
@@ -36,7 +31,6 @@ public class BorrowResponse {
         this.status = status;
     }
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }

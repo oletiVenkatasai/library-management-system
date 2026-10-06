@@ -6,9 +6,6 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
-/**
- * Member Request DTO.
- */
 public class MemberRequest {
 
     @NotBlank(message = "Name is required")
@@ -26,11 +23,9 @@ public class MemberRequest {
     @NotNull(message = "Membership date is required")
     private LocalDate membershipDate;
 
-    // Default constructor
     public MemberRequest() {
     }
 
-    // Getters and Setters
     public String getName() {
         return name;
     }

@@ -14,9 +14,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-/**
- * Member Service - Business logic for member operations.
- */
 @Service
 public class MemberService {
 
@@ -29,9 +26,6 @@ public class MemberService {
         this.borrowTransactionRepository = borrowTransactionRepository;
     }
 
-    /**
-     * Get all members.
-     */
     public List<MemberResponse> getAllMembers() {
         return memberRepository.findAll()
                 .stream()
@@ -39,19 +33,12 @@ public class MemberService {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Get member by ID.
-     */
     public MemberResponse getMemberById(Long id) {
         Member member = findMemberOrThrow(id);
         return mapToResponse(member);
     }
 
-    /**
-     * Add a new member.
-     */
     public MemberResponse addMember(MemberRequest request) {
-        // Check for duplicate email
         Optional<Member> existingMember = memberRepository.findByEmail(request.getEmail());
         if (existingMember.isPresent()) {
             throw new DuplicateResourceException("A member with email '" + request.getEmail() + "' already exists");
@@ -68,13 +55,9 @@ public class MemberService {
         return mapToResponse(saved);
     }
 
-    /**
-     * Update an existing member.
-     */
     public MemberResponse updateMember(Long id, MemberRequest request) {
         Member member = findMemberOrThrow(id);
 
-        // Check for duplicate email (but allow same member to keep their email)
         Optional<Member> existingMember = memberRepository.findByEmail(request.getEmail());
         if (existingMember.isPresent() && !existingMember.get().getId().equals(id)) {
             throw new DuplicateResourceException("A member with email '" + request.getEmail() + "' already exists");
@@ -90,14 +73,9 @@ public class MemberService {
         return mapToResponse(updated);
     }
 
-    /**
-     * Delete a member.
-     * Cannot delete if the member has active (ISSUED) borrowings.
-     */
     public void deleteMember(Long id) {
         Member member = findMemberOrThrow(id);
 
-        // Check for any borrowings (ISSUED or RETURNED) — cannot delete if records exist
         if (!borrowTransactionRepository.findByMemberId(id).isEmpty()) {
             throw new BusinessException("Cannot delete member. Borrowing records are associated with this member.");
         }
@@ -105,19 +83,12 @@ public class MemberService {
         memberRepository.delete(member);
     }
 
-    /**
-     * Search members by name or email.
-     */
     public List<MemberResponse> searchMembers(String keyword) {
         return memberRepository.searchMembers(keyword)
                 .stream()
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
     }
-
-    // ============================================================
-    // Helper Methods
-    // ============================================================
 
     private Member findMemberOrThrow(Long id) {
         return memberRepository.findById(id)
